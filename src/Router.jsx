@@ -1,8 +1,9 @@
 import HomePage from "./pages/Home";
 import AboutPage from "./pages/AboutPage";
-import { useState,useEffect } from "react";
-const NAVIGATION_EVENT = "pushstate";
+import { useState, useEffect } from "react";
+import { match } from "path-to-regexp";
 
+const NAVIGATION_EVENT = "pushstate";
 
 export function Router({
   routes = [],
@@ -23,8 +24,17 @@ export function Router({
     };
   }, []);
 
+  let ruoteParams = {};
+
   const Page = routes.find(({ path }) => {
-    return path === currentPath;
+    if (path === currentPath) return true;
+    // hemos usado path to regex para detectar rutas dinamicas
+    const matchUrl = match(path, { decode: decodeURIComponent });
+    const matched = matchUrl(currentPath);
+    if (!matched) return false;
+
+    ruoteParams = matched.params;
+    return true;
   })?.component;
-  return Page? <Page/>: <DefaultComponent/>
+  return Page ? <Page ruoteParams={ruoteParams} /> : <DefaultComponent />;
 }

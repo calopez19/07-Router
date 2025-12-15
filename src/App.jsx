@@ -15,6 +15,16 @@ const routes = [
     path: "/about",
     component: AboutPage,
   },
+  {
+    path: '/search/:query',
+    component: ({ruoteParams}) => {
+      return (
+        <>
+          <h1>Buscador, has buscado {ruoteParams.query}</h1>
+        </>
+      )
+    }
+  }
 ];
 
 
