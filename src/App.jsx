@@ -53,9 +53,11 @@ function App() {
     };
 
     window.addEventListener(NAVIGATION_EVENT, onLocationChange);
-
+    window.addEventListener("popstate", onLocationChange);
+    //EL popstate es el evento cuando uno apreta el boton hacia atras
     return () => {
       window.removeEventListener(NAVIGATION_EVENT, onLocationChange);
+      window.removeEventListener("popstate", onLocationChange);
     };
   }, []);
   return (
