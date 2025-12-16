@@ -35,11 +35,8 @@ export function Router({
   });
 
   const routesToUse = routes.concat(routesFromChildren).filter(Boolean)
-
-  console.log(routesToUse);
   
   const Page = routesToUse.find(({ path }) => {
-    console.log(path, currentPath, path === currentPath);
     
     if (path === currentPath) return true;
     // hemos usado path to regex para detectar rutas dinamicas
